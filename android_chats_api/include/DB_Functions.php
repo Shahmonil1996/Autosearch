@@ -9,8 +9,8 @@ class DB_Functions {
     function __construct() {
         require_once 'DB_Connect.php';
         // connecting to database
-        $this->db = new DB_Connect();
-        $this->db->connect();
+        $con->db = new DB_Connect();
+        $con->db->connect();
     }
  
     // destructor
