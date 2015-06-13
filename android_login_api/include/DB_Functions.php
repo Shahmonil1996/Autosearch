@@ -3,7 +3,7 @@
 class DB_Functions {
  
     private $db;
- 
+      global $con;
     //put your code here
     // constructor
     function __construct() {
