@@ -1,5 +1,6 @@
 <?php
-
+include 'Config.php';
+$con= mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE) or die(mysqli_connect_error());
 class DB_Functions {
  private $con;
     private $db;
