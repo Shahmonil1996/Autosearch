@@ -3,14 +3,14 @@
 class DB_Functions {
  
     private $db;
-      global $con;
+      private $con;
     //put your code here
     // constructor
     function __construct() {
         require_once 'DB_Connect.php';
         // connecting to database
         $this->db = new DB_Connect();
-        $this->db->connect();
+        $con=$this->db->connect();
     }
  
     // destructor
