@@ -10,7 +10,7 @@ class DB_Functions {
         require_once 'DB_Connect.php';
         // connecting to database
         $this->db = new DB_Connect();
-        $con=$this->db->connect();
+        $this->con=$this->db->connect();
     }
  
     // destructor
@@ -27,12 +27,12 @@ class DB_Functions {
         $hash = $this->hashSSHA($password);
         $encrypted_password = $hash["encrypted"]; // encrypted password
         $salt = $hash["salt"]; // salt
-        $result = mysqli_query($con,"INSERT INTO users(unique_id, name, email, encrypted_password, salt, created_at,number) VALUES('$uuid', '$name', '$email', '$encrypted_password', '$salt', NOW(),'$number')");
+        $result = mysqli_query($this->con,"INSERT INTO users(unique_id, name, email, encrypted_password, salt, created_at,number) VALUES('$uuid', '$name', '$email', '$encrypted_password', '$salt', NOW(),'$number')");
         // check for successful store
         if ($result) {
             // get user details 
             $uid = mysql_insert_id(); // last inserted id
-            $result = mysqli_query($con,"SELECT * FROM users WHERE unique_id = $uid");
+            $result = mysqli_query($this->con,"SELECT * FROM users WHERE unique_id = $uid");
             // return user details
             return mysql_fetch_array($result);
         } else {
@@ -43,7 +43,7 @@ class DB_Functions {
      * Get user by Phone number
      */
     public function getUserByPhoneNumber($number) {
-        $result = mysqli_query($con,"SELECT * FROM users WHERE number='$number'") or die(mysql_error());
+        $result = mysqli_query($this->con,"SELECT * FROM users WHERE number='$number'") or die(mysql_error());
         // check for result 
         $no_of_rows = mysql_num_rows($result);
         if ($no_of_rows > 0) {
@@ -61,7 +61,7 @@ class DB_Functions {
      * Get user by email and password
      */
     public function getUserByEmailAndPassword($email, $password) {
-        $result = mysqli_query($con,"SELECT * FROM users WHERE email = '$email'") or die(mysql_error());
+        $result = mysqli_query($this->con,"SELECT * FROM users WHERE email = '$email'") or die(mysql_error());
         // check for result 
         $no_of_rows = mysql_num_rows($result);
         if ($no_of_rows > 0) {
@@ -84,7 +84,7 @@ class DB_Functions {
      * Check user is existed or not
      */
     public function isUserExisted($email) {
-        $result = mysqli_query($con,"SELECT email from users WHERE email = '$email'");
+        $result = mysqli_query($this->con,"SELECT email from users WHERE email = '$email'");
         $no_of_rows = mysql_num_rows($result);
         if ($no_of_rows > 0) {
             // user existed 
